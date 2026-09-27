@@ -846,6 +846,7 @@
   align-items: center;
   justify-content: center;
   z-index: 3;
+  width: 90vw;
 }
 
 #overlay.show {
