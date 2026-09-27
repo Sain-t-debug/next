@@ -6,3 +6,13 @@ menu.addEventListener('click',function(){
     menu.classList.toggle('is-active')
     
 }) 
+
+document.getElementById("openBtn").onclick = function () {
+  document.getElementById("overlay").classList.add("show");
+  menuLink.classList.remove('active')
+};
+
+document.getElementById("closeBtn").onclick = function () {
+  document.getElementById("overlay").classList.remove("show");
+  menu.classList.remove('is-active')
+};
