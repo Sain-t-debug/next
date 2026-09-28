@@ -305,19 +305,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
 }
 
-.services h1 {
-    color:#ff8177 ;
-    background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
-    background-size: 100%;
+.services h1{
     margin-bottom: 5rem;
-    font-size: 2.5rem  ;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #ff8177; /* fallback */
+    background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
     -webkit-background-clip: text;
-    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 
 .services_container{
@@ -325,74 +325,96 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+    width: 100%;
+    max-width: 1300px;
+    padding: 0 25px;
 }
 
 .services_card{
-    margin: 1rem;
+    --card-bg: none;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;   /* text sits at the bottom */
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    flex: 1 1 320px;             /* shrinks to fit phones, grows up to max-width */
+    max-width: 400px;
     height: 525px;
-    width: 400px;
+    padding: 30px;
+
     border-radius: 4px;
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0)0%,rgba(17,17,17,0.6)100%),url('/yamu_jay-ai-generated-9214144_1920.jpg');
-    background-size: cover;
-    position: relative;
-    color: white;
+    color: #fff;
     text-transform: capitalize;
-}
- 
-.services_card:nth-child(2){
-       background-image: linear-gradient(to bottom, rgba(0,0,0,0)0%,rgba(17,17,17,0.6)100%),url('/sunriseforever-game-console-6603120_1920.jpg');
+
+    background-image:
+        linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(17,17,17,0.6) 100%),
+        var(--card-bg);
     background-size: cover;
-    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: transform 0.2s ease-in;
 }
 
-.services h2 {
-    position: absolute;
-    top: 350px;
-    left: 30px;
+/* one image per card */
+.services_card:nth-child(1){
+    --card-bg: url('/yamu_jay-ai-generated-9214144_1920.jpg');
 }
 
-.services_card p{
-    position: absolute;
-    top: 400px;
-    left: 30px;
+.services_card:nth-child(2){
+    --card-bg: url('/sunriseforever-game-console-6603120_1920.jpg');
 }
 
 .services_card button{
-    color: white;
+    margin-top: 0.5rem;
     padding: 10px 20px;
     border: none;
     outline: none;
     border-radius: 4px;
     background: #f77062;
-    top: 440px;
-    left: 30px;
+    color: #fff;
     font-size: 1rem;
-    position: absolute;
-    cursor: pointer;
     text-transform: capitalize;
+    cursor: pointer;
+    transition: transform 0.2s ease-in;
 }
 
-.services_card:hover{
-    transform: scale(1.075);
-    transition: 0.2s ease-in;
-    cursor: pointer;
+/* hover effects only on devices with a real cursor (avoids sticky hover on phones) */
+@media (hover: hover){
+    .services_card:hover{
+        transform: scale(1.075);
+        cursor: pointer;
+    }
 
+    .services_card button:hover{
+        transform: scale(1.075);
+    }
 }
-
-.services_card button:hover{
-    transform: scale(1.075);
-    transition: 0.2s ease-in;
-    cursor: pointer;
-
-} 
 
 /* SERVICES - MOBILE */
 @media (max-width: 700px){
-    .services{ height: auto; padding-bottom: 1rem; }
-    .services h1{ font-size: 2rem; margin: 10px 10px 2rem; text-align: center; }
-    .services_card{ width: 100%; max-width: 400px; margin: 0.5rem 25px; }
-}
+    .services{
+        min-height: auto;
+        padding: 1.5rem 0 2rem;
+    }
 
+    .services h1{
+        font-size: 2rem;
+        margin: 0 10px 2rem;
+    }
+
+    .services_container{
+        gap: 20px;
+    }
+
+    .services_card{
+        height: 420px;
+        padding: 25px;
+    }
+}
 /* FOOTER CSS */
  .footer_container{
     padding: 4rem 50px 3rem 50px;
@@ -503,13 +525,30 @@
 
 /* FOOTER - MOBILE */
 @media (max-width: 700px){
-    .footer_container{ padding: 3rem 25px 2rem; }
-    .footer_link{ gap: 40px; padding-bottom: 2rem; }
-    .footer_link-wrapper{ flex-direction: column; align-items: center; gap: 40px; }
-    #footer_logo{ margin-bottom: 1.5rem; }
-    .websites_right{ margin-bottom: 1.5rem; }
-    .social_media-wrapper{ flex-direction: column; text-align: center; }
-    .social_media_icon{ justify-content: center; }
+    .footer_container{ 
+        padding: 3rem 25px 2rem; 
+    }
+    .footer_link{ 
+        gap: 40px; 
+        padding-bottom: 2rem; 
+    }
+    .footer_link-wrapper{ 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 40px; 
+    }
+    #footer_logo{ 
+        margin-bottom: 1.5rem; 
+    }
+    .websites_right{ 
+        margin-bottom: 1.5rem; 
+    }
+    .social_media-wrapper{ 
+        flex-direction: column; text-align: center; 
+    }
+    .social_media_icon{ 
+        justify-content: center;
+     }
 }
 
 
@@ -743,62 +782,133 @@
     .courses_grid{ grid-template-columns: 1fr; padding: 0 25px; }
 }
 
-#overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+/* SIGNUP OVERLAY */
+#overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
-#overlay.show {
-  display: flex;
+#overlay.show{
+    display: flex;
 }
 
-#signupForm {
-  background: #1c1c1c;
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80vw;
-  position: relative;
+/* lock the page behind the form while it's open */
+html:has(#overlay.show),
+body:has(#overlay.show){
+    overflow: hidden;
 }
 
-#signupForm label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
+#signupForm{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 32px 24px 24px;
+    background: #1c1c1c;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
-#signupForm input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  background: #141414;
-  color: #fff;
-  border: 1px solid #333;
-  border-radius: 4px;
+#signupForm label{
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #ddd;
 }
 
-#signupForm button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background: #f77062;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+#signupForm input{
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 16px;
+    background: #141414;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 1rem;          
+    transition: border-color 0.2s ease;
 }
 
-#closeBtn {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
+#signupForm input:focus{
+    outline: none;
+    border-color: #f77062;
+}
+
+#signupForm input::placeholder{
+    color: #777;
+}
+
+#signupForm button[type="submit"]{
+    width: 100%;
+    padding: 12px;
+    margin-top: 4px;
+    background: #f77062;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#signupForm button[type="submit"]:hover{
+    background: #4837ff;
+}
+
+#closeBtn{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+#closeBtn:hover{
+    color: #f77062;
+}
+
+/* SIGNUP OVERLAY - MOBILE */
+@media (max-width: 700px){
+    #overlay{
+        padding: 15px;
+    }
+
+    #signupForm{
+        padding: 28px 18px 18px;
+    }
+
+    #signupForm label{
+        font-size: 0.85rem;
+    }
+
+    #signupForm input{
+        font-size: 1rem;     
+    }
+
+    #signupForm button[type="submit"]{
+        font-size: 1rem;
+    }
+
+    #closeBtn{
+        font-size: 1.5rem;    
+        
+    }
 }
